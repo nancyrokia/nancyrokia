@@ -212,6 +212,16 @@ header {
               0 10px 20px rgba(0,0,0,0.4);
 }
 
+.test-tube {
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.25)
+  );
+}
+
+
 .tube-label {
   position: absolute;
   top: -120px;
@@ -267,11 +277,24 @@ header {
   background: #f1f5f9;
   border-radius: 10px;
 }
-
+/* ===== GREEN CHECKED CHECKBOXES ===== */
 .checklist label {
   display: block;
   margin-bottom: 6px;
 }
+
+.checklist input[type="checkbox"] {
+  accent-color: #16a34a; /* modern browsers */
+  transform: scale(1.2);
+  margin-right: 6px;
+}
+
+/* Make label text green when checked */
+.checklist input[type="checkbox"]:checked + span {
+  color: #16a34a;
+  font-weight: bold;
+}
+
 
 /* ===== TABLE ===== */
 table {
@@ -290,6 +313,17 @@ th, td {
 th {
   background: #e5e7eb;
 }
+
+/* Inserting litmus paper and removal */
+.inserted-litmus {
+  cursor: pointer;
+}
+
+/* small hover hint */
+.inserted-litmus:hover {
+  filter: brightness(1.2);
+}
+
 
 /* ===== ANIMATION BOX ===== */
 .animation-box {
@@ -334,7 +368,7 @@ th {
 .anim-litmus {
   width: 10px;
   height: 90px;
-  background: linear-gradient(#2563eb 50%, #dc2626 50%);
+  background: #dc2626 50%;
   position: absolute;
   left: 50%;
   top: 0;
@@ -370,6 +404,31 @@ button {
   color: white;
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
+/* Reset button */
+.bench {
+  position: relative; /* 🔑 anchor for absolute positioning */
+}
+
+/* Reset button inside bench */
+.bench-reset {
+  position: absolute;
+  top: 120px;
+  right: 400px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.bench-reset:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
 </style>
 </head>
 
@@ -403,12 +462,7 @@ button {
     <strong>Beaker</strong>
     <div class="beaker" draggable="true" data-type="beaker">
       <div class="beaker-liquid" id="beakerLiquid"></div>
-      <!-- <select id="solution">
-        <option value="">Select solution</option>
-        <option value="acid">Lemon Juice</option>
-        <option value="base">Soap Solution</option>
-        <option value="neutral">Water</option>
-      </select> -->
+
       <select id="solution">
   <option value="">Select solution</option>
 
@@ -444,6 +498,10 @@ button {
   <div class="wall-shelf">Laboratory Bench</div>
   <div class="bench-area">
     <div class="bench" id="bench"></div>
+        <!-- Reset button INSIDE bench -->
+    <button class="bench-reset" onclick="resetBench()">
+      🔄 Reset
+    </button>
   </div>
 </main>
 
@@ -452,10 +510,26 @@ button {
   <h3>🧪 Procedure & Analysis</h3>
 
   <div class="checklist">
-    <label><input type="checkbox" id="s1" disabled> Drag test tube to lab bench</label>
-    <label><input type="checkbox" id="s2" disabled> Select solution & drag to tube</label>
-    <label><input type="checkbox" id="s3" disabled> Insert litmus in the test tube</label>
-    <label><input type="checkbox" id="s4" disabled> Observe colour change & analyze</label>
+    
+<label>
+  <input type="checkbox" id="s1" disabled>
+  <span>Drag test tube to lab bench</span>
+</label>
+<label>
+  <input type="checkbox" id="s2" disabled>
+  <span>Select solution & drag to tube</span>
+</label>
+
+<label>
+  <input type="checkbox" id="s3" disabled>
+  <span>Insert litmus in the test tube</span>
+</label>
+
+<label>
+  <input type="checkbox" id="s4" disabled>
+  <span>Observe colour change & analyze</span>
+</label>
+
   </div>
 
   <div class="feedback" id="feedback"></div>
@@ -500,37 +574,47 @@ const bench = document.getElementById("bench");
 const solutionSelect = document.getElementById("solution");
 const beakerLiquid = document.getElementById("beakerLiquid");
 const log = document.getElementById("log");
+const feedback = document.getElementById("feedback");
 
 let tubeCount = 0;
 
+/* Change beaker colour when solution selected */
 solutionSelect.addEventListener("change", () => {
   beakerLiquid.style.background =
     solutionSelect.value === "acid" ? "#fde047" :
     solutionSelect.value === "base" ? "#93c5fd" :
+    solutionSelect.value === "neutral" ? "#bbf7d0" : 
     "#d1d5db";
 });
 
+
+/* Drag start */
 document.addEventListener("dragstart", e => {
   if (e.target.dataset.type) {
     e.dataTransfer.setData("type", e.target.dataset.type);
   }
 });
 
+/* Bench drop */
 bench.addEventListener("dragover", e => e.preventDefault());
 
 bench.addEventListener("drop", e => {
   if (e.dataTransfer.getData("type") === "tube") {
     tubeCount++;
+
     const tube = document.createElement("div");
     tube.className = "test-tube";
     tube.dataset.solution = "";
     tube.dataset.label = `Tube ${tubeCount}`;
+
     tube.innerHTML = `
       <div class="tube-label">${tube.dataset.label}</div>
       <div class="liquid"></div>
     `;
+
     bench.appendChild(tube);
     document.getElementById("s1").checked = true;
+
     enableTube(tube);
   }
 });
@@ -541,33 +625,65 @@ function enableTube(tube) {
   tube.addEventListener("drop", e => {
     const type = e.dataTransfer.getData("type");
 
-    if (type === "beaker") {
-      tube.dataset.solution = solutionSelect.value;
-      tube.querySelector(".liquid").style.background = beakerLiquid.style.background;
-      tube.querySelector(".tube-label").textContent =
-        `${tube.dataset.label} (${solutionSelect.value})`;
-      document.getElementById("s2").checked = true;
+    /* Only one litmus at a time */
+    if (type.includes("litmus") && tube.querySelector(".inserted-litmus")) {
+      feedback.textContent =
+        "Remove the current litmus paper before adding another.";
+      return;
     }
 
+    /* Pour solution */
+    if (type === "beaker") {
+      tube.dataset.solution = solutionSelect.value;
+      tube.querySelector(".liquid").style.background =
+        beakerLiquid.style.background;
+
+      tube.querySelector(".tube-label").textContent =
+        `${tube.dataset.label} (${solutionSelect.value})`;
+
+      document.getElementById("s2").checked = true;
+      feedback.textContent = "Solution added to test tube.";
+    }
+
+    /* Insert litmus */
     if (type.includes("litmus")) {
+      if (!tube.dataset.solution) {
+        feedback.textContent = "Add a solution before testing with litmus.";
+        return;
+      }
+
+      /* ✅ CREATE ROW ID FIRST */
+      const rowId = `row-${tube.dataset.label}-${Date.now()}`;
+
       const strip = document.createElement("div");
       strip.className = "inserted-litmus";
-      strip.innerHTML = `<div class="litmus-top"></div><div class="litmus-bottom"></div>`;
+      strip.title = "Click to remove litmus paper";
+      strip.dataset.rowId = rowId;
+
+      strip.innerHTML = `
+        <div class="litmus-top"></div>
+        <div class="litmus-bottom"></div>
+      `;
+
       tube.appendChild(strip);
 
       const top = strip.querySelector(".litmus-top");
       const bottom = strip.querySelector(".litmus-bottom");
 
-      top.style.background = type === "blue-litmus" ? "#2563eb" : "#dc2626";
+      top.style.background =
+        type === "blue-litmus" ? "#2563eb" : "#dc2626";
 
       const sol = tube.dataset.solution;
-      bottom.style.background =
-        sol === "acid" ? "#dc2626" :
-        sol === "base" ? "#2563eb" :
-        top.style.background;
 
+        bottom.style.background =
+        sol === "acid" ? "#dc2626"
+    :   sol === "base" ? "#2563eb"
+    :   top.style.background; // neutral → no change
+
+
+      /* ✅ ADD TABLE ROW */
       log.innerHTML += `
-        <tr>
+        <tr id="${rowId}">
           <td>${tube.dataset.label}</td>
           <td>${sol}</td>
           <td>${type.replace("-", " ")}</td>
@@ -576,12 +692,45 @@ function enableTube(tube) {
         </tr>
       `;
 
+      /* ✅ REMOVE LITMUS + ROW */
+      strip.addEventListener("click", () => {
+        const row = document.getElementById(strip.dataset.rowId);
+        if (row) row.remove();
+        strip.remove();
+        feedback.textContent =
+          "Litmus paper and its analysis removed. You may test again.";
+      });
+
       document.getElementById("s3").checked = true;
       document.getElementById("s4").checked = true;
+
+      feedback.textContent = "Litmus test completed.";
     }
-  });
+
+  }); 
+}
+    // /Resetbutton/ 
+    function resetBench() {
+  // Clear all test tubes from bench
+  bench.innerHTML = "";
+
+  // Clear observation table
+  log.innerHTML = "";
+
+  // Reset counters
+  tubeCount = 0;
+
+  // Reset checklist
+  document.getElementById("s1").checked = false;
+  document.getElementById("s2").checked = false;
+  document.getElementById("s3").checked = false;
+  document.getElementById("s4").checked = false;
+
+  // Reset beaker
+  solutionSelect.value = "";
+  beakerLiquid.style.background = "#d1d5db";
+
+  // Feedback
+  feedback.textContent = "Workbench cleared. Start a new experiment.";
 }
 </script>
-
-</body>
-</html>
