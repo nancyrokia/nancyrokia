@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Scene 2 – Testing Substances (Red Cabbage Indicator)</title>
+
+<style>
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY & BACKGROUND ===== */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  color: #0f172a;
+  background: radial-gradient(circle at top, #1f2933, #020617);
+}
+
+/* animated chemistry glow */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #1f2933, #93c5fd, #1f2933);
+  opacity: 0.35;
+  animation: glowMove 14s infinite alternate;
+}
+
+@keyframes glowMove {
+  from { transform: translateX(-8%); }
+  to { transform: translateX(8%); }
+}
+
+/* ===== HEADER ===== */
+header {
+  position: relative;
+  z-index: 3;
+  background: linear-gradient(#1f2933, #93c5fd);
+  color: white;
+  padding: 14px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* ===== LAYOUT ===== */
+.lab {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 22% 56% 22%;
+  height: calc(100vh - 60px);
+}
+
+/* ===== SHELF ===== */
+.shelf {
+  background: rgba(255,255,255,0.9);
+  border-right: 3px solid #cbd5e1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.shelf h3 {
+  margin-bottom: 12px;
+}
+
+.item {
+  background: linear-gradient(#cbd5e1, #94a3b8);
+  padding: 12px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  cursor: grab;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: inset 0 0 6px rgba(255,255,255,0.4),
+              0 6px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+}
+
+/* ===== WORKSPACE ===== */
+.workspace {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: linear-gradient(#1f2933, #93c5fd);
+}
+
+.bench {
+  background: linear-gradient(#1f2933, #93c5fd);
+  width: 92%;
+  height: 85%;
+  border-radius: 22px;
+  padding: 22px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  transform: translateY(-60px);
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.12),
+    0 30px 60px rgba(0,0,0,0.6);
+}
+
+/* ===== TEST TUBE ===== */
+.test-tube {
+  width: 74px;
+  height: 250px;
+  border: 3px solid #1f2933;
+  border-radius: 0 0 28px 28px;
+  background: rgba(255,255,255,0.9);
+  position: relative;
+  box-shadow:
+    inset 0 0 14px rgba(0,0,0,0.2),
+    0 10px 20px rgba(0,0,0,0.4);
+}
+
+.tube-label {
+  position: absolute;
+  top: -28px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: #020617;
+}
+
+.tube-liquid {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  background: #e5e7eb;
+  border-radius: 0 0 24px 24px;
+  transition: height 0.8s ease, background 0.8s ease;
+}
+
+/* ===== LITMUS ===== */
+.litmus {
+  width: 14px;
+  height: 150px;
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: dip 1.2s forwards;
+}
+
+.litmus-top,
+.litmus-bottom {
+  width: 100%;
+  height: 50%;
+}
+
+@keyframes dip {
+  to { top: 24px; }
+}
+
+/* ===== GUIDE ===== */
+.guide {
+  background: rgba(255,255,255,0.95);
+  padding: 16px;
+  border-left: 3px solid #cbd5e1;
+  overflow-y: auto;
+}
+
+.checklist label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.feedback {
+  font-weight: bold;
+  margin-top: 12px;
+  color: #1f2933;
+}
+
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+th, td {
+  border: 1px solid #cbd5e1;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #e5e7eb;
+}
+
+/* ===== VIDEO ===== */
+iframe {
+  width: 100%;
+  border-radius: 14px;
+  margin-top: 12px;
+}
+
+/* ===== NAV BUTTONS ===== */
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(#1f2933, #93c5fd);
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🧪 Scene 2 – Testing Substances (Red Cabbage Indicator)</h2>
+
+  <div style="position: fixed; top: 10px; right: 10px;">
+    <button onclick="location.href='scene3.html'">▶ Next</button>
+  </div>
+
+  <div style="position: fixed; top: 10px; right: 180px;">
+    <button onclick="location.href='scene1.html'">◀ Previous</button>
+  </div>
+</header>
+
+<div class="lab">
+
+<!-- MATERIALS -->
+<aside class="shelf">
+  <h3>🧰 Materials</h3>
+  <div class="item" draggable data-type="tube">🧪 Test Tube</div>
+  <div class="item" draggable data-type="acid">🍋 Acid</div>
+  <div class="item" draggable data-type="base">🧼 Base</div>
+  <div class="item" draggable data-type="indicator">🟣 Indicator</div>
+  <div class="item" draggable data-type="red-litmus">📄 Red Litmus</div>
+  <div class="item" draggable data-type="blue-litmus">📄 Blue Litmus</div>
+</aside>
+
+<!-- WORKSPACE -->
+<main class="workspace">
+  <div class="bench" id="bench"></div>
+</main>
+
+<!-- GUIDE -->
+<aside class="guide">
+  <h3>📋 Procedure</h3>
+  <div class="checklist">
+    <label><input type="checkbox" id="p1"> Place test tubes</label>
+    <label><input type="checkbox" id="p2"> Add substances</label>
+    <label><input type="checkbox" id="p3"> Add indicator</label>
+    <label><input type="checkbox" id="p4"> Dip litmus paper</label>
+    <label><input type="checkbox" id="p5"> Record observations</label>
+  </div>
+
+  <p class="feedback" id="feedback">Drag a test tube to begin.</p>
+
+  <h3>📊 Observations & Analysis</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Tube</th>
+        <th>Substance</th>
+        <th>Litmus</th>
+        <th>Colour</th>
+        <th>Conclusion</th>
+      </tr>
+    </thead>
+    <tbody id="log"></tbody>
+  </table>
+
+  <h3>🎥 Watch & Learn</h3>
+  <iframe src="https://www.youtube.com/embed/0rZkK3s2H4Y" allowfullscreen></iframe>
+</aside>
+
+</div>
+
+<!-- ===== SCRIPT (UNCHANGED FUNCTIONALITY) ===== -->
+<script>
+let tubeCount = 0;
+const bench = document.getElementById("bench");
+const log = document.getElementById("log");
+const feedback = document.getElementById("feedback");
+
+document.addEventListener("dragstart", e => {
+  if (e.target.dataset.type)
+    e.dataTransfer.setData("type", e.target.dataset.type);
+});
+
+bench.addEventListener("dragover", e => e.preventDefault());
+
+bench.addEventListener("drop", e => {
+  if (e.dataTransfer.getData("type") === "tube") {
+    tubeCount++;
+    document.getElementById("p1").checked = true;
+
+    const tube = document.createElement("div");
+    tube.className = "test-tube";
+    tube.dataset.label = `Tube ${String.fromCharCode(64 + tubeCount)}`;
+    tube.innerHTML = `
+      <div class="tube-label">${tube.dataset.label}</div>
+      <div class="tube-liquid"></div>`;
+    bench.appendChild(tube);
+    enableTube(tube);
+  }
+});
+
+function enableTube(tube) {
+  tube.addEventListener("dragover", e => e.preventDefault());
+
+  tube.addEventListener("drop", e => {
+    const type = e.dataTransfer.getData("type");
+    const liquid = tube.querySelector(".tube-liquid");
+
+    if (type === "acid" || type === "base") {
+      tube.dataset.solution = type;
+      liquid.style.height = "40%";
+      document.getElementById("p2").checked = true;
+      feedback.textContent = "Substance added.";
+    }
+
+    if (type === "indicator") {
+      liquid.style.background = "#6d28d9";
+      liquid.style.height = "60%";
+      document.getElementById("p3").checked = true;
+      feedback.textContent = "Indicator added. Observe colour.";
+    }
+
+    if (type.includes("litmus") && tube.dataset.solution) {
+      document.getElementById("p4").checked = true;
+
+      const strip = document.createElement("div");
+      strip.className = "litmus";
+      strip.innerHTML = `<div class="litmus-top"></div><div class="litmus-bottom"></div>`;
+      tube.appendChild(strip);
+
+      const top = strip.children[0];
+      const bottom = strip.children[1];
+      top.style.background = type === "red-litmus" ? "#dc2626" : "#2563eb";
+
+      let result, colour;
+      if (tube.dataset.solution === "acid") {
+        bottom.style.background = "#dc2626";
+        result = "Acid";
+        colour = "Red";
+      } else {
+        bottom.style.background = "#2563eb";
+        result = "Base";
+        colour = "Blue";
+      }
+
+      document.getElementById("p5").checked = true;
+      feedback.textContent = "What colour do you see? What does it mean?";
+
+      log.innerHTML += `
+        <tr>
+          <td>${tube.dataset.label}</td>
+          <td>${tube.dataset.solution}</td>
+          <td>${type.replace("-", " ")}</td>
+          <td>${colour}</td>
+          <td>${result}</td>
+        </tr>`;
+    }
+  });
+}
+</script>
+
+</body>
+</html>
