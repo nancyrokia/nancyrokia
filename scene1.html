@@ -17,47 +17,6 @@ body {
   overflow: hidden;
 }
 
-/* moving lab light */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(147,197,253,0.15),
-    rgba(31,41,51,0.7),
-    rgba(147,197,253,0.15)
-  );
-  animation: labGlow 16s infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes labGlow {
-  from { transform: translateX(-15%); }
-  to { transform: translateX(15%); }
-}
-
-/* floating chemistry ions */
-.ion {
-  position: fixed;
-  font-weight: bold;
-  font-size: 15px;
-  opacity: 0.25;
-  animation: floatIon 12s infinite ease-in-out;
-  pointer-events: none;
-}
-
-@keyframes floatIon {
-  50% { transform: translateY(-40px); }
-}
-
-.h { color: #93c5fd; }
-.oh { color: #bfdbfe; }
-
-.i1 { top: 18%; left: 15%; }
-.i2 { top: 65%; left: 30%; animation-delay: 3s; }
-.i3 { top: 25%; right: 20%; animation-delay: 6s; }
-.i4 { bottom: 20%; right: 30%; animation-delay: 9s; }
 
 /* ============ HEADER ============ */
 header {
@@ -263,12 +222,6 @@ header {
 </head>
 
 <body>
-
-<!-- floating ions -->
-<div class="ion h i1">H⁺</div>
-<div class="ion oh i2">OH⁻</div>
-<div class="ion h i3">H⁺</div>
-<div class="ion oh i4">OH⁻</div>
 
 <header>
   <h2>🧪 Scene 1 – Preparing Acid–Base Indicator</h2>
