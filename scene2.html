@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Scene 2 – Testing Substances (Red Cabbage Indicator)</title>
+<title>Virtual Chemistry Lab – Litmus Test</title>
 
 <style>
 /* ===== RESET ===== */
@@ -17,26 +17,25 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
   height: 100vh;
   overflow: hidden;
-  color: #0f172a;
   background: radial-gradient(circle at top, #1f2933, #020617);
+  color: #020617;
 }
 
-/* animated chemistry glow */
+/* animated science glow */
 body::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(120deg, #1f2933, #93c5fd, #1f2933);
   opacity: 0.35;
-  animation: glowMove 14s infinite alternate;
+  animation: labGlow 16s infinite alternate;
 }
 
-@keyframes glowMove {
+@keyframes labGlow {
   from { transform: translateX(-8%); }
   to { transform: translateX(8%); }
 }
 
-/* ===== HEADER ===== */
 /* ============ HEADER ============ */
 header {
   background: linear-gradient(#1f2933, #334155);
@@ -50,11 +49,6 @@ header {
   z-index: 5;
 }
 
-header h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
 .nav-btn {
   padding: 10px 18px;
   font-size: 14px;
@@ -66,12 +60,9 @@ header h2 {
   box-shadow: inset 0 0 8px rgba(255,255,255,0.2);
 }
 
-
 .nav-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.45);
 }
-
 
 /* ===== LAYOUT ===== */
 .lab {
@@ -82,9 +73,9 @@ header h2 {
   height: calc(100vh - 60px);
 }
 
-/* ===== SHELF ===== */
+/* ===== MATERIAL SHELF ===== */
 .shelf {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   border-right: 3px solid #cbd5e1;
   padding: 16px;
   overflow-y: auto;
@@ -94,89 +85,231 @@ header h2 {
   margin-bottom: 12px;
 }
 
-.item {
-  background: linear-gradient(#cbd5e1, #94a3b8);
-  padding: 12px;
+.shelf-block {
+  background: linear-gradient(#1f2933, #93c5fd);
+  color: #ffff;
   border-radius: 14px;
-  margin-bottom: 12px;
-  cursor: grab;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: inset 0 0 6px rgba(255,255,255,0.4),
-              0 6px 12px rgba(0,0,0,0.2);
-  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.5),
+              0 8px 18px rgba(0,0,0,0.2);
 }
 
-.item:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+/* ===== RACK ===== */
+.rack {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
 }
+
+.rack-tube {
+  width: 42px;
+  height: 150px;
+  border: 2px solid #1f2933;
+  border-radius: 0 0 18px 18px;
+  background: rgba(255,255,255,0.9);
+  cursor: grab;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.15),
+              0 6px 14px rgba(0,0,0,0.25);
+}
+
+/* ===== TEST TUBE HOLDER ===== */
+.test-tube-holder {
+  margin-top: 12px;
+  padding: 14px;
+  background: linear-gradient(#334155, #1f2933);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 4px 8px rgba(255,255,255,0.15),
+    0 10px 24px rgba(0,0,0,0.5);
+}
+
+/* Rack top plate */
+.holder-top {
+  height: 18px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Holes */
+.holder-hole {
+  width: 40px;
+  height: 8px;
+  background:#0c0d0e;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.15);
+}
+
+/* Rack bottom */
+.holder-base {
+  height: 16px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  border-radius: 8px;
+  margin-top: 1px;
+}
+
+/* Test tubes inside holder */
+.holder-tubes {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: -7px;
+}
+
+.holder-tube {
+  width: 42px;
+  height: 140px;
+  border: 2px solid #1f2933;
+  border-radius: 0 0 18px 18px;
+  background: rgba(255,255,255,0.9);
+  cursor: grab;
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.2),
+    0 6px 14px rgba(0,0,0,0.35);
+}
+
+
+/* ===== BEAKER ===== */
+.beaker {
+  width: 130px;
+  height: 170px;
+  border: 3px solid #1f2933;
+  border-radius: 0 0 32px 32px;
+  background: rgba(255,255,255,0.9);
+  margin: auto;
+  padding: 6px;
+  cursor: grab;
+  position: relative;
+  box-shadow: inset 0 0 14px rgba(0,0,0,0.2),
+              0 10px 22px rgba(0,0,0,0.35);
+}
+
+.beaker-liquid {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  height: 70%;
+  border-radius: 0 0 24px 24px;
+  background: #c6cfd8
+}
+
+.beaker select {
+  width: 100%;
+  margin-top: 6px;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+/* ===== LITMUS ===== */
+.litmus-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.litmus-strip {
+  width: 14px;
+  height: 90px;
+  border-radius: 6px;
+  cursor: grab;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.blue-litmus { background: #2563eb; }
+.red-litmus { background: #dc2626; }
 
 /* ===== WORKSPACE ===== */
 .workspace {
   display: flex;
+  flex-direction: column;
+}
+
+.wall-shelf {
+  background: linear-gradient(#93c5fd, #1f2933);
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: inset 0 -4px 10px rgba(0,0,0,0.4);
+}
+
+.bench-area {
+  flex: 1;
+  background: linear-gradient(#1f2933, #93c5fd);
+  padding: 20px;
+  display: flex;
   justify-content: center;
   align-items: flex-end;
-  background: linear-gradient(#1f2933, #93c5fd);
 }
 
 .bench {
   background: linear-gradient(#1f2933, #93c5fd);
-  width: 92%;
+  width: 90%;
   height: 85%;
-  border-radius: 22px;
-  padding: 22px;
+  border-radius: 20px;
+  padding: 20px;
   display: flex;
   gap: 40px;
   align-items: flex-end;
-  flex-wrap: wrap;
   transform: translateY(-60px);
-  box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.12),
-    0 30px 60px rgba(0,0,0,0.6);
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.12),
+              0 30px 60px rgba(0,0,0,0.6);
 }
 
 /* ===== TEST TUBE ===== */
 .test-tube {
-  width: 74px;
+  width: 72px;
   height: 250px;
   border: 3px solid #1f2933;
-  border-radius: 0 0 28px 28px;
+  border-radius: 0 0 30px 30px;
   background: rgba(255,255,255,0.9);
   position: relative;
-  box-shadow:
-    inset 0 0 14px rgba(0,0,0,0.2),
-    0 10px 20px rgba(0,0,0,0.4);
+  box-shadow: inset 0 0 14px rgba(0,0,0,0.2),
+              0 10px 20px rgba(0,0,0,0.4);
 }
+
+.test-tube {
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.25)
+  );
+}
+
 
 .tube-label {
   position: absolute;
-  top: -28px;
+  top: -120px;
   width: 100%;
   text-align: center;
+  font-size: 12px;
   font-weight: bold;
-  color: #020617;
+  color: #fff;
 }
 
-.tube-liquid {
+.liquid {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 0;
-  background: #e5e7eb;
-  border-radius: 0 0 24px 24px;
-  transition: height 0.8s ease, background 0.8s ease;
+  height: 70%;
+  border-radius: 0 0 26px 26px;
+  background: transparent;
 }
 
-/* ===== LITMUS ===== */
-.litmus {
-  width: 14px;
-  height: 150px;
+/* ===== LITMUS INSIDE TUBE ===== */
+.inserted-litmus {
   position: absolute;
-  top: -160px;
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
-  animation: dip 1.2s forwards;
+  width: 10px;
+  height: 140px;
 }
 
 .litmus-top,
@@ -185,35 +318,51 @@ header h2 {
   height: 50%;
 }
 
-@keyframes dip {
-  to { top: 24px; }
-}
-
 /* ===== GUIDE ===== */
 .guide {
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.97);
   padding: 16px;
   border-left: 3px solid #cbd5e1;
   overflow-y: auto;
 }
 
+.feedback {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #1f2933;
+}
+
+.analysis {
+  margin-top: 15px;
+  padding: 10px;
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+/* ===== GREEN CHECKED CHECKBOXES ===== */
 .checklist label {
   display: block;
   margin-bottom: 6px;
 }
 
-.feedback {
-  font-weight: bold;
-  margin-top: 12px;
-  color: #1f2933;
+.checklist input[type="checkbox"] {
+  accent-color: #16a34a; /* modern browsers */
+  transform: scale(1.2);
+  margin-right: 6px;
 }
+
+/* Make label text green when checked */
+.checklist input[type="checkbox"]:checked + span {
+  color: #16a34a;
+  font-weight: bold;
+}
+
 
 /* ===== TABLE ===== */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
   font-size: 13px;
-  margin-top: 12px;
 }
 
 th, td {
@@ -226,11 +375,84 @@ th {
   background: #e5e7eb;
 }
 
-/* ===== VIDEO ===== */
-iframe {
+/* Inserting litmus paper and removal */
+.inserted-litmus {
+  cursor: pointer;
+}
+
+/* small hover hint */
+.inserted-litmus:hover {
+  filter: brightness(1.2);
+}
+
+
+/* ===== ANIMATION BOX ===== */
+.animation-box {
+  margin-top: 15px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  color:#ffff;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+}
+
+/* ===== ANIMATED PROCEDURE VISUAL ===== */
+.anim-wrapper {
+  position: relative;
+  height: 160px;
+  margin-top: 10px;
+}
+
+/* animated test tube */
+.anim-tube {
+  width: 40px;
+  height: 120px;
+  border: 3px solid #1f2933;
+  border-radius: 0 0 18px 18px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  background: white;
+  overflow: hidden;
+}
+
+/* liquid inside tube */
+.anim-liquid {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  border-radius: 14px;
-  margin-top: 12px;
+  height: 50%;
+  background: #5f1c9f;
+}
+
+/* litmus strip */
+.anim-litmus {
+  width: 10px;
+  height: 90px;
+  background: #dc2626 50%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  animation: dipLitmus 3s infinite;
+}
+
+/* dipping animation */
+@keyframes dipLitmus {
+  0%   { top: 0; }
+  40%  { top: 60px; }
+  60%  { top: 60px; }
+  100% { top: 0; }
+}
+
+
+/* ===== VIDEO ===== */
+.quick-video iframe {
+  width: 100%;
+  height: 160px;
+  border-radius: 12px;
+  border: none;
 }
 
 /* ===== NAV BUTTONS ===== */
@@ -244,6 +466,130 @@ button {
   color: white;
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
+/* Reset button */
+.bench {
+  position: relative; /* 🔑 anchor for absolute positioning */
+}
+
+/* Reset button inside bench */
+.bench-reset {
+  position: absolute;
+  top: 120px;
+  right: 400px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.bench-reset:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* ===== REAL TRASH CAN ===== */
+.trash-can {
+  position: absolute;
+  bottom: 100px;
+  right: 400px;
+  width: 90px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+}
+
+/* Lid */
+.trash-lid {
+  height: 16px;
+  background: linear-gradient(#475569, #1f2933);
+  border-radius: 8px 8px 4px 4px;
+  margin-bottom: 4px;
+  box-shadow: inset 0 -2px 4px rgba(255,255,255,0.2);
+}
+
+/* Body */
+.trash-body {
+  height: 110px;
+  background: linear-gradient(#64748b, #334155);
+  border-radius: 0 0 16px 16px;
+  box-shadow:
+    inset 0 6px 10px rgba(255,255,255,0.15),
+    inset 0 -8px 12px rgba(0,0,0,0.4),
+    0 10px 24px rgba(0,0,0,0.6);
+  padding: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Inside container */
+.trash-inside {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+/* Litmus inside trash can */
+.trash-litmus {
+  width: 6px;
+  height: 28px;
+  border-radius: 3px;
+  opacity: 0.85;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
+}
+
+/* Label */
+.trash-label {
+  text-align: center;
+  font-size: 11px;
+  margin-top: 4px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Drag hover feedback */
+.trash-can.drag-over .trash-body {
+  background: linear-gradient(#22c55e, #15803d);
+}
+
+.holder-tube.empty {
+  background: repeating-linear-gradient(
+    45deg,
+    #94a3b8,
+    #94a3b8 6px,
+    #cbd5e1 6px,
+    #cbd5e1 12px
+  );
+}
+
+.tube-controls {
+  position: absolute;
+  top: -40px;
+  display: flex;
+  gap: 6px;
+}
+
+.drain-btn, .wash-btn {
+  font-size: 10px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inserted-litmus {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
 </style>
 </head>
 
@@ -258,84 +604,234 @@ button {
   </div>
 </header>
 
-
 <div class="lab">
 
 <!-- MATERIALS -->
 <aside class="shelf">
-  <h3>🧰 Materials</h3>
-  <div class="item" draggable data-type="tube">🧪 Test Tube</div>
-  <div class="item" draggable data-type="acid">🍋 Acid</div>
-  <div class="item" draggable data-type="base">🧼 Base</div>
-  <div class="item" draggable data-type="indicator">🟣 Indicator</div>
-  <div class="item" draggable data-type="red-litmus">📄 Red Litmus</div>
-  <div class="item" draggable data-type="blue-litmus">📄 Blue Litmus</div>
+  <h3>🧰 Apparatus Shelf</h3>
+
+  <div class="shelf-block">
+    <strong>Test Tube Rack</strong>
+
+<div class="test-tube-holder">
+  <div class="holder-top">
+    <div class="holder-hole"></div>
+    <div class="holder-hole"></div>
+    <div class="holder-hole"></div>
+    <div class="holder-hole"></div>
+  </div>
+
+  <div class="holder-tubes">
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+  </div>
+
+  <div class="holder-base"></div>
+</div>
+
+
+  </div>
+
+  <div class="shelf-block">
+    <strong>Beaker</strong>
+    <div class="beaker" draggable="true" data-type="beaker">
+      <div class="beaker-liquid" id="beakerLiquid"></div>
+
+      <select id="solution">
+  <option value="">Select indicator</option>
+
+  <option value="lemon" data-type="acid">Lemon Juice</option>
+  <option value="vinegar" data-type="acid">Vinegar</option>
+  <option value="hcl" data-type="acid">Hydrochloric Acid (HCl)</option>
+
+  <option value="soap" data-type="base">Soap Solution</option>
+  <option value="naoh" data-type="base">Sodium Hydroxide (NaOH)</option>
+  <option value="baking" data-type="base">Baking Soda </option>
+
+  <option value="water" data-type="neutral">Water</option>
+  <option value="salt" data-type="neutral">Salt Solution</option>
+
+
+  
+</select>
+
+    </div>
+  </div>
+
+  <div class="shelf-block">
+    <strong>Litmus Paper</strong>
+    <div class="litmus-container">
+      <div class="litmus-strip blue-litmus" draggable="true" data-type="blue-litmus"></div>
+      <div class="litmus-strip red-litmus" draggable="true" data-type="red-litmus"></div>
+    </div>
+  </div>
 </aside>
 
 <!-- WORKSPACE -->
 <main class="workspace">
-  <div class="bench" id="bench"></div>
+  <div class="wall-shelf">Laboratory Bench</div>
+  <div class="bench-area">
+    <div class="bench" id="bench"></div>
+        <!-- Reset button INSIDE bench -->
+    <button class="bench-reset" onclick="resetBench()">
+      🔄 Reset
+    </button>
+  </div>
+  <!-- Trash Can -->
+<div class="trash-can" id="trashCan" title="Click to empty trash">
+  <div class="trash-lid"></div>
+
+  <div class="trash-body">
+    <!-- Litmus will appear inside here -->
+    <div class="trash-inside" id="trashInside"></div>
+  </div>
+
+  <div class="trash-label">TRASH CAN</div>
+</div>
+
 </main>
 
 <!-- GUIDE -->
 <aside class="guide">
-  <h3>📋 Procedure</h3>
+  <h3>🧪 Procedure & Analysis</h3>
+
   <div class="checklist">
-    <label><input type="checkbox" id="p1"> Place test tubes</label>
-    <label><input type="checkbox" id="p2"> Add substances</label>
-    <label><input type="checkbox" id="p3"> Add indicator</label>
-    <label><input type="checkbox" id="p4"> Dip litmus paper</label>
-    <label><input type="checkbox" id="p5"> Record observations</label>
+    
+<label>
+  <input type="checkbox" id="s1" disabled>
+  <span>Drag test tube to lab bench</span>
+</label>
+<label>
+  <input type="checkbox" id="s2" disabled>
+  <span>Select substance & drag to tube</span>
+</label>
+
+<label>
+  <input type="checkbox" id="s3" disabled>
+  <span>Add indicator then dip litmus</span>
+</label>
+
+<label>
+  <input type="checkbox" id="s4" disabled>
+  <span>Observe colour change & analyze</span>
+</label>
+
   </div>
 
-  <p class="feedback" id="feedback">Drag a test tube to begin.</p>
+  <div class="feedback" id="feedback"></div>
 
-  <h3>📊 Observations & Analysis</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Tube</th>
-        <th>Substance</th>
-        <th>Litmus</th>
-        <th>Colour</th>
-        <th>Conclusion</th>
-      </tr>
-    </thead>
-    <tbody id="log"></tbody>
-  </table>
+  <div class="analysis">
+    <strong>Observation & Analysis:</strong>
+    <table>
+      <thead>
+        <tr>
+          <th>Test Tube</th>
+          <th>Substance</th>
+          <th>Litmus Used</th>
+          <th>Observation</th>
+          <th>Conclusion</th>
+        </tr>
+      </thead>
+      <tbody id="log"></tbody>
+    </table>
+  </div>
 
-  <h3>🎥 Watch & Learn</h3>
-  <iframe src="https://www.youtube.com/embed/0rZkK3s2H4Y" allowfullscreen></iframe>
+  <div class="animation-box">
+    <h4>🎞️ Animated Procedure</h4>
+    <div class="anim-wrapper">
+      <div class="anim-litmus"></div>
+      <div class="anim-tube">
+        <div class="anim-liquid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-video">
+    <h4>📺 Quick Tutorial</h4>
+    <iframe src="https://www.youtube.com/embed/0rZkK3s2H4Y" allowfullscreen></iframe>
+  </div>
 </aside>
+
+
 
 </div>
 
-<!-- ===== SCRIPT (UNCHANGED FUNCTIONALITY) ===== -->
+<!-- SCRIPT (UNCHANGED) -->
 <script>
-let tubeCount = 0;
 const bench = document.getElementById("bench");
+const solutionSelect = document.getElementById("solution");
+const beakerLiquid = document.getElementById("beakerLiquid");
 const log = document.getElementById("log");
 const feedback = document.getElementById("feedback");
 
-document.addEventListener("dragstart", e => {
-  if (e.target.dataset.type)
-    e.dataTransfer.setData("type", e.target.dataset.type);
+/* 🧠 Solution data */
+const solutionData = {
+  lemon: { name: "Lemon Juice", type: "acid", color: "#fde68a" },
+  vinegar:{ name: "Vinegar", type: "acid", color: "#cbd5e1" },
+  hcl:{ name: "Hydrochloric Acid (HCl)", type: "acid", color: "#cbd5e1" },
+  soap:{ name: "Soap Solution", type: "base", color: "#bfdbfe" },
+  naoh:{ name: "Sodium Hydroxide (NaOH)", type: "base", color: "#cbd5e1" },
+  baking:{ name: "Baking Soda", type: "base", color: "#cbd5e1" },
+  water:{ name: "Water", type: "neutral", color: "#cbd5e1" },
+  salt:{ name: "Salt Solution", type: "neutral", color: "#cbd5e1" }
+};
+
+/* Trash */
+const trashCan = document.getElementById("trashCan");
+const trashInside = document.getElementById("trashInside");
+
+let tubeCount = 0;
+
+/* Beaker colour */
+solutionSelect.addEventListener("change", () => {
+  const sol = solutionData[solutionSelect.value];
+  beakerLiquid.style.background = sol ? sol.color : "#d1d5db";
 });
 
+/* Drag start */
+document.addEventListener("dragstart", e => {
+  if (e.target.dataset.type) {
+    e.dataTransfer.setData("type", e.target.dataset.type);
+  }
+
+  if (e.target.classList.contains("holder-tube")) {
+    e.dataTransfer.setData("type", "tube");
+    e.target.classList.add("empty");
+    e.target.style.opacity = "0.25";
+    e.target.draggable = false;
+  }
+
+  if (e.target.classList.contains("inserted-litmus")) {
+    e.dataTransfer.setData("trashId", e.target.dataset.trashId);
+    e.dataTransfer.setData(
+      "color",
+      e.target.querySelector(".litmus-bottom").style.background
+    );
+  }
+});
+
+/* Bench drop */
 bench.addEventListener("dragover", e => e.preventDefault());
 
 bench.addEventListener("drop", e => {
   if (e.dataTransfer.getData("type") === "tube") {
     tubeCount++;
-    document.getElementById("p1").checked = true;
 
     const tube = document.createElement("div");
     tube.className = "test-tube";
-    tube.dataset.label = `Tube ${String.fromCharCode(64 + tubeCount)}`;
+    tube.dataset.label = `Tube ${tubeCount}`;
+    tube.dataset.solution = "";
+    tube.dataset.solutionType = "";
+
     tube.innerHTML = `
       <div class="tube-label">${tube.dataset.label}</div>
-      <div class="tube-liquid"></div>`;
+      <div class="liquid"></div>
+    `;
+
     bench.appendChild(tube);
+    document.getElementById("s1").checked = true;
     enableTube(tube);
   }
 });
@@ -345,60 +841,139 @@ function enableTube(tube) {
 
   tube.addEventListener("drop", e => {
     const type = e.dataTransfer.getData("type");
-    const liquid = tube.querySelector(".tube-liquid");
 
-    if (type === "acid" || type === "base") {
-      tube.dataset.solution = type;
-      liquid.style.height = "40%";
-      document.getElementById("p2").checked = true;
-      feedback.textContent = "Substance added.";
+    /* Pour solution */
+    if (type === "beaker") {
+      const sol = solutionData[solutionSelect.value];
+      if (!sol) return;
+
+      tube.dataset.solution = sol.name;
+      tube.dataset.solutionType = sol.type;
+
+      tube.querySelector(".liquid").style.background = sol.color;
+      tube.querySelector(".tube-label").textContent =
+        `${tube.dataset.label} (${sol.name})`;
+
+      document.getElementById("s2").checked = true;
+      feedback.textContent = "Solution added to test tube.";
     }
 
-    if (type === "indicator") {
-      liquid.style.background = "#6d28d9";
-      liquid.style.height = "60%";
-      document.getElementById("p3").checked = true;
-      feedback.textContent = "Indicator added. Observe colour.";
-    }
-
-    if (type.includes("litmus") && tube.dataset.solution) {
-      document.getElementById("p4").checked = true;
-
-      const strip = document.createElement("div");
-      strip.className = "litmus";
-      strip.innerHTML = `<div class="litmus-top"></div><div class="litmus-bottom"></div>`;
-      tube.appendChild(strip);
-
-      const top = strip.children[0];
-      const bottom = strip.children[1];
-      top.style.background = type === "red-litmus" ? "#dc2626" : "#2563eb";
-
-      let result, colour;
-      if (tube.dataset.solution === "acid") {
-        bottom.style.background = "#dc2626";
-        result = "Acid";
-        colour = "Red";
-      } else {
-        bottom.style.background = "#2563eb";
-        result = "Base";
-        colour = "Blue";
+    /* Insert litmus (ALLOW TWO) */
+    if (type.includes("litmus")) {
+      if (!tube.dataset.solution) {
+        feedback.textContent = "Add a solution before testing.";
+        return;
       }
 
-      document.getElementById("p5").checked = true;
-      feedback.textContent = "What colour do you see? What does it mean?";
+      const existing = tube.querySelectorAll(".inserted-litmus");
+      if (existing.length >= 2) {
+        feedback.textContent = "Only two litmus papers allowed per test tube.";
+        return;
+      }
+
+      const order = existing.length + 1;
+      const rowId = `${tube.dataset.label}-litmus-${order}-${Date.now()}`;
+
+      const strip = document.createElement("div");
+      strip.className = "inserted-litmus";
+      strip.draggable = true;
+      strip.dataset.trashId = rowId;
+      strip.dataset.order = order;
+      strip.style.left = order === 1 ? "35%" : "65%";
+strip.style.transform = "translateX(-50%)";
+
+
+      strip.innerHTML = `
+        <div class="litmus-top"></div>
+        <div class="litmus-bottom"></div>
+      `;
+
+      tube.appendChild(strip);
+
+      const top = strip.querySelector(".litmus-top");
+      const bottom = strip.querySelector(".litmus-bottom");
+
+      top.style.background =
+        type === "blue-litmus" ? "#2563eb" : "#dc2626";
+
+      const solType = tube.dataset.solutionType;
+      bottom.style.background =
+        solType === "acid" ? "#dc2626" :
+        solType === "base" ? "#2563eb" :
+        top.style.background;
 
       log.innerHTML += `
-        <tr>
+        <tr id="${rowId}">
           <td>${tube.dataset.label}</td>
           <td>${tube.dataset.solution}</td>
-          <td>${type.replace("-", " ")}</td>
-          <td>${colour}</td>
-          <td>${result}</td>
-        </tr>`;
+          <td>Litmus ${order} (${type.replace("-", " ")})</td>
+          <td>Colour change observed</td>
+          <td>
+            Compared with Litmus ${order === 1 ? 2 : 1}<br>
+            Result matches ${tube.dataset.solutionType.toUpperCase()}
+          </td>
+        </tr>
+      `;
+
+      document.getElementById("s3").checked = true;
+      document.getElementById("s4").checked = true;
+      feedback.textContent = `Litmus ${order} tested successfully.`;
     }
   });
 }
-</script>
 
-</body>
-</html>
+/* Trash */
+trashCan.addEventListener("dragover", e => {
+  e.preventDefault();
+  trashCan.classList.add("drag-over");
+});
+
+trashCan.addEventListener("dragleave", () =>
+  trashCan.classList.remove("drag-over")
+);
+
+trashCan.addEventListener("drop", e => {
+  e.preventDefault();
+  trashCan.classList.remove("drag-over");
+
+  const rowId = e.dataTransfer.getData("trashId");
+  const color = e.dataTransfer.getData("color");
+
+  document.querySelector(`[data-trash-id="${rowId}"]`)?.remove();
+  document.getElementById(rowId)?.remove();
+
+  const trashStrip = document.createElement("div");
+  trashStrip.className = "trash-litmus";
+  trashStrip.style.background = color;
+  trashInside.appendChild(trashStrip);
+
+  feedback.textContent = "Litmus discarded.";
+});
+
+trashCan.addEventListener("click", () => {
+  trashInside.innerHTML = "";
+  feedback.textContent = "Trash can emptied.";
+});
+
+/* Reset */
+function resetBench() {
+  bench.innerHTML = "";
+  log.innerHTML = "";
+  tubeCount = 0;
+
+  ["s1","s2","s3","s4"].forEach(id =>
+    document.getElementById(id).checked = false
+  );
+
+  solutionSelect.value = "";
+  beakerLiquid.style.background = "#d1d5db";
+
+  document.querySelectorAll(".holder-tube").forEach(tube => {
+    tube.classList.remove("empty");
+    tube.style.opacity = "1";
+    tube.draggable = true;
+  });
+
+  feedback.textContent = "Workbench reset.";
+}
+</script>

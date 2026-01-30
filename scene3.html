@@ -86,7 +86,8 @@ header {
 }
 
 .shelf-block {
-  background: linear-gradient(#f8fafc, #e5e7eb);
+  background: linear-gradient(#1f2933, #93c5fd);
+  color: #ffff;
   border-radius: 14px;
   padding: 12px;
   margin-bottom: 16px;
@@ -112,6 +113,66 @@ header {
               0 6px 14px rgba(0,0,0,0.25);
 }
 
+/* ===== TEST TUBE HOLDER ===== */
+.test-tube-holder {
+  margin-top: 12px;
+  padding: 14px;
+  background: linear-gradient(#334155, #1f2933);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 4px 8px rgba(255,255,255,0.15),
+    0 10px 24px rgba(0,0,0,0.5);
+}
+
+/* Rack top plate */
+.holder-top {
+  height: 18px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Holes */
+.holder-hole {
+  width: 40px;
+  height: 8px;
+  background:#0c0d0e;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.15);
+}
+
+/* Rack bottom */
+.holder-base {
+  height: 16px;
+  background: linear-gradient(#1f2933, #93c5fd);
+  border-radius: 8px;
+  margin-top: 1px;
+}
+
+/* Test tubes inside holder */
+.holder-tubes {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: -7px;
+}
+
+.holder-tube {
+  width: 42px;
+  height: 140px;
+  border: 2px solid #1f2933;
+  border-radius: 0 0 18px 18px;
+  background: rgba(255,255,255,0.9);
+  cursor: grab;
+  box-shadow:
+    inset 0 0 8px rgba(0,0,0,0.2),
+    0 6px 14px rgba(0,0,0,0.35);
+}
+
+
 /* ===== BEAKER ===== */
 .beaker {
   width: 130px;
@@ -134,7 +195,7 @@ header {
   right: 6px;
   height: 70%;
   border-radius: 0 0 24px 24px;
-  background: #d1d5db;
+  background: #c6cfd8
 }
 
 .beaker select {
@@ -238,7 +299,7 @@ header {
   width: 100%;
   height: 70%;
   border-radius: 0 0 26px 26px;
-  background: #d1d5db;
+  background: transparent;
 }
 
 /* ===== LITMUS INSIDE TUBE ===== */
@@ -328,7 +389,8 @@ th {
 /* ===== ANIMATION BOX ===== */
 .animation-box {
   margin-top: 15px;
-  background: #f8fafc;
+  background: linear-gradient(#1f2933, #93c5fd);
+  color:#ffff;
   border-radius: 12px;
   padding: 10px;
   text-align: center;
@@ -429,6 +491,105 @@ button {
   transform: translateY(-2px) scale(1.05);
 }
 
+/* ===== REAL TRASH CAN ===== */
+.trash-can {
+  position: absolute;
+  bottom: 100px;
+  right: 400px;
+  width: 90px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 20;
+}
+
+/* Lid */
+.trash-lid {
+  height: 16px;
+  background: linear-gradient(#475569, #1f2933);
+  border-radius: 8px 8px 4px 4px;
+  margin-bottom: 4px;
+  box-shadow: inset 0 -2px 4px rgba(255,255,255,0.2);
+}
+
+/* Body */
+.trash-body {
+  height: 110px;
+  background: linear-gradient(#64748b, #334155);
+  border-radius: 0 0 16px 16px;
+  box-shadow:
+    inset 0 6px 10px rgba(255,255,255,0.15),
+    inset 0 -8px 12px rgba(0,0,0,0.4),
+    0 10px 24px rgba(0,0,0,0.6);
+  padding: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Inside container */
+.trash-inside {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+/* Litmus inside trash can */
+.trash-litmus {
+  width: 6px;
+  height: 28px;
+  border-radius: 3px;
+  opacity: 0.85;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
+}
+
+/* Label */
+.trash-label {
+  text-align: center;
+  font-size: 11px;
+  margin-top: 4px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Drag hover feedback */
+.trash-can.drag-over .trash-body {
+  background: linear-gradient(#22c55e, #15803d);
+}
+
+.holder-tube.empty {
+  background: repeating-linear-gradient(
+    45deg,
+    #94a3b8,
+    #94a3b8 6px,
+    #cbd5e1 6px,
+    #cbd5e1 12px
+  );
+}
+
+.tube-controls {
+  position: absolute;
+  top: -40px;
+  display: flex;
+  gap: 6px;
+}
+
+.drain-btn, .wash-btn {
+  font-size: 10px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inserted-litmus {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
 </style>
 </head>
 
@@ -438,7 +599,7 @@ button {
   <h2>🧪 Scene 3 – Using Litmus Indicator</h2>
 
   <div>
-    <button class="nav-btn" onclick="location.href='scene1.html'">◀ Previous</button>
+    <button class="nav-btn" onclick="location.href='scene2.html'">◀ Previous</button>
     <button class="nav-btn" onclick="location.href='index.html'">Exit ▶</button>
   </div>
 </header>
@@ -447,15 +608,30 @@ button {
 
 <!-- MATERIALS -->
 <aside class="shelf">
-  <h3>🧰 Materials Shelf</h3>
+  <h3>🧰 Apparatus Shelf</h3>
 
   <div class="shelf-block">
     <strong>Test Tube Rack</strong>
-    <div class="rack">
-      <div class="rack-tube" draggable="true" data-type="tube"></div>
-      <div class="rack-tube" draggable="true" data-type="tube"></div>
-      <div class="rack-tube" draggable="true" data-type="tube"></div>
-    </div>
+
+<div class="test-tube-holder">
+  <div class="holder-top">
+    <div class="holder-hole"></div>
+    <div class="holder-hole"></div>
+    <div class="holder-hole"></div>
+    <div class="holder-hole"></div>
+  </div>
+
+  <div class="holder-tubes">
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+    <div class="holder-tube" draggable="true" data-type="tube"></div>
+  </div>
+
+  <div class="holder-base"></div>
+</div>
+
+
   </div>
 
   <div class="shelf-block">
@@ -466,19 +642,19 @@ button {
       <select id="solution">
   <option value="">Select solution</option>
 
-  <!-- Acids -->
-  <option value="acid">Lemon Juice</option>
-  <option value="acid">Vinegar</option>
-  <option value="acid">Hydrochloric Acid (HCl)</option>
+  <option value="lemon" data-type="acid">Lemon Juice</option>
+  <option value="vinegar" data-type="acid">Vinegar</option>
+  <option value="hcl" data-type="acid">Hydrochloric Acid (HCl)</option>
 
-  <!-- Bases -->
-  <option value="base">Soap Solution</option>
-  <option value="base">Sodium Hydroxide (NaOH)</option>
-  <option value="base">Baking Soda Solution</option>
+  <option value="soap" data-type="base">Soap Solution</option>
+  <option value="naoh" data-type="base">Sodium Hydroxide (NaOH)</option>
+  <option value="baking" data-type="base">Baking Soda </option>
 
-  <!-- Neutral -->
-  <option value="neutral">Water</option>
-  <option value="neutral">Salt Solution</option>
+  <option value="water" data-type="neutral">Water</option>
+  <option value="salt" data-type="neutral">Salt Solution</option>
+
+
+  
 </select>
 
     </div>
@@ -503,6 +679,18 @@ button {
       🔄 Reset
     </button>
   </div>
+  <!-- Trash Can -->
+<div class="trash-can" id="trashCan" title="Click to empty trash">
+  <div class="trash-lid"></div>
+
+  <div class="trash-body">
+    <!-- Litmus will appear inside here -->
+    <div class="trash-inside" id="trashInside"></div>
+  </div>
+
+  <div class="trash-label">TRASH CAN</div>
+</div>
+
 </main>
 
 <!-- GUIDE -->
@@ -566,6 +754,8 @@ button {
   </div>
 </aside>
 
+
+
 </div>
 
 <!-- SCRIPT (UNCHANGED) -->
@@ -576,22 +766,49 @@ const beakerLiquid = document.getElementById("beakerLiquid");
 const log = document.getElementById("log");
 const feedback = document.getElementById("feedback");
 
+/* 🧠 Solution data */
+const solutionData = {
+  lemon: { name: "Lemon Juice", type: "acid", color: "#fde68a" },
+  vinegar:{ name: "Vinegar", type: "acid", color: "#cbd5e1" },
+  hcl:{ name: "Hydrochloric Acid (HCl)", type: "acid", color: "#cbd5e1" },
+  soap:{ name: "Soap Solution", type: "base", color: "#bfdbfe" },
+  naoh:{ name: "Sodium Hydroxide (NaOH)", type: "base", color: "#cbd5e1" },
+  baking:{ name: "Baking Soda", type: "base", color: "#cbd5e1" },
+  water:{ name: "Water", type: "neutral", color: "#cbd5e1" },
+  salt:{ name: "Salt Solution", type: "neutral", color: "#cbd5e1" }
+};
+
+/* Trash */
+const trashCan = document.getElementById("trashCan");
+const trashInside = document.getElementById("trashInside");
+
 let tubeCount = 0;
 
-/* Change beaker colour when solution selected */
+/* Beaker colour */
 solutionSelect.addEventListener("change", () => {
-  beakerLiquid.style.background =
-    solutionSelect.value === "acid" ? "#fde047" :
-    solutionSelect.value === "base" ? "#93c5fd" :
-    solutionSelect.value === "neutral" ? "#bbf7d0" : 
-    "#d1d5db";
+  const sol = solutionData[solutionSelect.value];
+  beakerLiquid.style.background = sol ? sol.color : "#d1d5db";
 });
-
 
 /* Drag start */
 document.addEventListener("dragstart", e => {
   if (e.target.dataset.type) {
     e.dataTransfer.setData("type", e.target.dataset.type);
+  }
+
+  if (e.target.classList.contains("holder-tube")) {
+    e.dataTransfer.setData("type", "tube");
+    e.target.classList.add("empty");
+    e.target.style.opacity = "0.25";
+    e.target.draggable = false;
+  }
+
+  if (e.target.classList.contains("inserted-litmus")) {
+    e.dataTransfer.setData("trashId", e.target.dataset.trashId);
+    e.dataTransfer.setData(
+      "color",
+      e.target.querySelector(".litmus-bottom").style.background
+    );
   }
 });
 
@@ -604,8 +821,9 @@ bench.addEventListener("drop", e => {
 
     const tube = document.createElement("div");
     tube.className = "test-tube";
-    tube.dataset.solution = "";
     tube.dataset.label = `Tube ${tubeCount}`;
+    tube.dataset.solution = "";
+    tube.dataset.solutionType = "";
 
     tube.innerHTML = `
       <div class="tube-label">${tube.dataset.label}</div>
@@ -614,7 +832,6 @@ bench.addEventListener("drop", e => {
 
     bench.appendChild(tube);
     document.getElementById("s1").checked = true;
-
     enableTube(tube);
   }
 });
@@ -625,40 +842,46 @@ function enableTube(tube) {
   tube.addEventListener("drop", e => {
     const type = e.dataTransfer.getData("type");
 
-    /* Only one litmus at a time */
-    if (type.includes("litmus") && tube.querySelector(".inserted-litmus")) {
-      feedback.textContent =
-        "Remove the current litmus paper before adding another.";
-      return;
-    }
-
     /* Pour solution */
     if (type === "beaker") {
-      tube.dataset.solution = solutionSelect.value;
-      tube.querySelector(".liquid").style.background =
-        beakerLiquid.style.background;
+      const sol = solutionData[solutionSelect.value];
+      if (!sol) return;
 
+      tube.dataset.solution = sol.name;
+      tube.dataset.solutionType = sol.type;
+
+      tube.querySelector(".liquid").style.background = sol.color;
       tube.querySelector(".tube-label").textContent =
-        `${tube.dataset.label} (${solutionSelect.value})`;
+        `${tube.dataset.label} (${sol.name})`;
 
       document.getElementById("s2").checked = true;
       feedback.textContent = "Solution added to test tube.";
     }
 
-    /* Insert litmus */
+    /* Insert litmus (ALLOW TWO) */
     if (type.includes("litmus")) {
       if (!tube.dataset.solution) {
-        feedback.textContent = "Add a solution before testing with litmus.";
+        feedback.textContent = "Add a solution before testing.";
         return;
       }
 
-      /* ✅ CREATE ROW ID FIRST */
-      const rowId = `row-${tube.dataset.label}-${Date.now()}`;
+      const existing = tube.querySelectorAll(".inserted-litmus");
+      if (existing.length >= 2) {
+        feedback.textContent = "Only two litmus papers allowed per test tube.";
+        return;
+      }
+
+      const order = existing.length + 1;
+      const rowId = `${tube.dataset.label}-litmus-${order}-${Date.now()}`;
 
       const strip = document.createElement("div");
       strip.className = "inserted-litmus";
-      strip.title = "Click to remove litmus paper";
-      strip.dataset.rowId = rowId;
+      strip.draggable = true;
+      strip.dataset.trashId = rowId;
+      strip.dataset.order = order;
+      strip.style.left = order === 1 ? "35%" : "65%";
+strip.style.transform = "translateX(-50%)";
+
 
       strip.innerHTML = `
         <div class="litmus-top"></div>
@@ -673,64 +896,84 @@ function enableTube(tube) {
       top.style.background =
         type === "blue-litmus" ? "#2563eb" : "#dc2626";
 
-      const sol = tube.dataset.solution;
+      const solType = tube.dataset.solutionType;
+      bottom.style.background =
+        solType === "acid" ? "#dc2626" :
+        solType === "base" ? "#2563eb" :
+        top.style.background;
 
-        bottom.style.background =
-        sol === "acid" ? "#dc2626"
-    :   sol === "base" ? "#2563eb"
-    :   top.style.background; // neutral → no change
-
-
-      /* ✅ ADD TABLE ROW */
       log.innerHTML += `
         <tr id="${rowId}">
           <td>${tube.dataset.label}</td>
-          <td>${sol}</td>
-          <td>${type.replace("-", " ")}</td>
+          <td>${tube.dataset.solution}</td>
+          <td>Litmus ${order} (${type.replace("-", " ")})</td>
           <td>Colour change observed</td>
-          <td>${sol.toUpperCase()}</td>
+          <td>
+            Compared with Litmus ${order === 1 ? 2 : 1}<br>
+            Result matches ${tube.dataset.solutionType.toUpperCase()}
+          </td>
         </tr>
       `;
 
-      /* ✅ REMOVE LITMUS + ROW */
-      strip.addEventListener("click", () => {
-        const row = document.getElementById(strip.dataset.rowId);
-        if (row) row.remove();
-        strip.remove();
-        feedback.textContent =
-          "Litmus paper and its analysis removed. You may test again.";
-      });
-
       document.getElementById("s3").checked = true;
       document.getElementById("s4").checked = true;
-
-      feedback.textContent = "Litmus test completed.";
+      feedback.textContent = `Litmus ${order} tested successfully.`;
     }
-
-  }); 
+  });
 }
-    // /Resetbutton/ 
-    function resetBench() {
-  // Clear all test tubes from bench
+
+/* Trash */
+trashCan.addEventListener("dragover", e => {
+  e.preventDefault();
+  trashCan.classList.add("drag-over");
+});
+
+trashCan.addEventListener("dragleave", () =>
+  trashCan.classList.remove("drag-over")
+);
+
+trashCan.addEventListener("drop", e => {
+  e.preventDefault();
+  trashCan.classList.remove("drag-over");
+
+  const rowId = e.dataTransfer.getData("trashId");
+  const color = e.dataTransfer.getData("color");
+
+  document.querySelector(`[data-trash-id="${rowId}"]`)?.remove();
+  document.getElementById(rowId)?.remove();
+
+  const trashStrip = document.createElement("div");
+  trashStrip.className = "trash-litmus";
+  trashStrip.style.background = color;
+  trashInside.appendChild(trashStrip);
+
+  feedback.textContent = "Litmus discarded.";
+});
+
+trashCan.addEventListener("click", () => {
+  trashInside.innerHTML = "";
+  feedback.textContent = "Trash can emptied.";
+});
+
+/* Reset */
+function resetBench() {
   bench.innerHTML = "";
-
-  // Clear observation table
   log.innerHTML = "";
-
-  // Reset counters
   tubeCount = 0;
 
-  // Reset checklist
-  document.getElementById("s1").checked = false;
-  document.getElementById("s2").checked = false;
-  document.getElementById("s3").checked = false;
-  document.getElementById("s4").checked = false;
+  ["s1","s2","s3","s4"].forEach(id =>
+    document.getElementById(id).checked = false
+  );
 
-  // Reset beaker
   solutionSelect.value = "";
   beakerLiquid.style.background = "#d1d5db";
 
-  // Feedback
-  feedback.textContent = "Workbench cleared. Start a new experiment.";
+  document.querySelectorAll(".holder-tube").forEach(tube => {
+    tube.classList.remove("empty");
+    tube.style.opacity = "1";
+    tube.draggable = true;
+  });
+
+  feedback.textContent = "Workbench reset.";
 }
 </script>

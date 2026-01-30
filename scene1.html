@@ -5,219 +5,228 @@
 <title>Scene 1 – Preparing Acid–Base Indicator</title>
 
 <style>
-/* ============ RESET ============ */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-/* ============ BODY & ATMOSPHERE ============ */
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: radial-gradient(circle at top, #334155, #1f2933);
-  color: #0f172a;
-  height: 100vh;
-  overflow: hidden;
+body{
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:radial-gradient(circle at top,#334155,#020617);
+  height:100vh;
+  overflow:hidden;
 }
 
-
-/* ============ HEADER ============ */
-header {
+/* ===== HEADER ===== */
+header{
   background: linear-gradient(#1f2933, #334155);
-  color: white;
-  padding: 14px 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-  position: relative;
-  z-index: 5;
+  color:white;
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.nav-btn {
-  padding: 10px 18px;
-  font-size: 14px;
-  border: none;
+.nav-btn{
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
   background: linear-gradient(#1f2933, #93c5fd);
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: inset 0 0 8px rgba(255,255,255,0.2);
+  color:white;
+  cursor:pointer;
 }
 
-.nav-btn:hover {
-  transform: translateY(-2px);
+/* ===== LAYOUT ===== */
+.lab{
+  display:grid;
+  grid-template-columns:20% 56% 24%;
+  height:calc(100vh - 60px);
 }
 
-/* ============ LAYOUT ============ */
-.lab {
-  display: grid;
-  grid-template-columns: 20% 56% 24%;
-  height: calc(100vh - 60px);
-  gap: 10px;
+/* ===== SHELF ===== */
+.shelf{
+  background:#f8fafc;
+  border-right:3px solid #cbd5e1;
+  padding:12px;
+  text-align:center;
 }
 
-/* ============ MATERIAL SHELF ============ */
-.shelf {
-  background: linear-gradient(#f8fafc, #e5e7eb);
-  border-right: 3px solid #cbd5e1;
-  padding: 10px;
-  overflow-y: auto;
-  text-align: center;
+.item{
+  width:90px;
+  margin:14px auto;
+  font-size:12px;
+  opacity:.35;
+  cursor:not-allowed;
 }
 
-.item {
-  width: 70px;
-  margin: 14px auto;
-  cursor: grab;
-  font-size: 12px;
+.item.active{
+  opacity:1;
+  cursor:grab;
 }
 
-/* icons */
-.cabbage-item {
-  width: 50px; height: 50px;
-  background: radial-gradient(circle at 30% 30%, #7c2d12, #4b0000);
-  border-radius: 50%;
-}
-.pestle-item {
-  width: 14px; height: 80px;
-  background: linear-gradient(#9ca3af, #64748b);
-  border-radius: 8px;
-}
-.stirrer-item {
-  width: 6px; height: 80px;
-  background: #334155;
-}
-.water-beaker-item {
-  width: 50px; height: 70px;
-  border: 2px solid #1f2933;
-  position: relative;
-}
-.water-beaker-item::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  height: 60%;
-  width: 100%;
-  background: #93c5fd;
-}
-.funnel-item {
-  width: 0; height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 35px solid #cbd5e1;
+.cabbage-item{width:50px;height:50px;border-radius:50%;background:#7c2d12}
+.pestle-item{width:14px;height:80px;background:#64748b;border-radius:8px}
+.water-beaker-item{width:50px;height:70px;border:2px solid #1f2933;position:relative}
+.water-beaker-item::after{content:"";position:absolute;bottom:0;height:60%;width:100%;background:#93c5fd}
+.stirrer-item{width:6px;height:80px;background:#334155}
+.funnel-item{
+  width:0;height:0;
+  border-left:20px solid transparent;
+  border-right:20px solid transparent;
+  border-top:35px solid #cbd5e1;
 }
 
-/* ============ WORKSPACE ============ */
-.workspace {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+/* ===== WORKSPACE ===== */
+.workspace{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  background: linear-gradient(#1f2933, #93c5fd);
 }
 
-.bench {
-  width: 92%;
-  height: 82%;
-  background: linear-gradient(#1f2933, #475569);
-  border-radius: 20px;
-  padding: 20px;
-  display: flex;
-  gap: 60px;
-  justify-content: center;
-  align-items: flex-end;
-  transform: translateY(-50px);
-  box-shadow: inset 0 0 25px rgba(147,197,253,0.15);
+.bench{
+  width:92%;
+  height:85%;
+  background: linear-gradient(#1f2933, #93c5fd);
+  border-radius:22px;
+  padding:20px;
+  display:flex;
+  gap:80px;
+  justify-content:center;
+  align-items:flex-end;
+  transform:translateY(-40px);
 }
 
-/* mortar & beaker */
-.mortar {
-  width: 120px;
-  height: 70px;
-  background: #d1d5db;
-  border-radius: 0 0 60px 60px;
-  position: relative;
+/* ===== EQUIPMENT ===== */
+.mortar{
+  width:120px;height:70px;
+  background:#d1d5db;
+  border-radius:0 0 60px 60px;
+  position:relative;
 }
 
-.cabbage {
-  width: 50px; height: 50px;
-  background: #7c2d12;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.cabbage.crushed {
-  width: 80px; height: 25px;
-  background: #6d28d9;
-  border-radius: 15px;
+.cabbage{
+  width:50px;height:50px;
+  background:#7c2d12;
+  border-radius:50%;
+  position:absolute;
+  bottom:5px;left:50%;
+  transform:translateX(-50%);
 }
 
-.pestle {
-  width: 14px;
-  height: 70px;
-  background: #64748b;
-  position: absolute;
-  top: -70px;
-  left: 55px;
-  border-radius: 8px;
-  animation: crush 0.8s infinite;
-}
-@keyframes crush { 50% { top: -35px; } }
-
-.water-stream {
-  width: 4px;
-  height: 60px;
-  background: #93c5fd;
-  position: absolute;
-  top: -60px;
-  left: 50%;
+.cabbage.crushed{
+  width:90px;height:26px;
+  background:#6d28d9;
+  border-radius:16px;
 }
 
-.stirrer {
-  width: 4px;
-  height: 50px;
-  background: #334155;
-  position: absolute;
-  left: 50%;
-  animation: stir 1s linear infinite;
-}
-@keyframes stir { to { transform: rotate(360deg); } }
-
-.beaker {
-  width: 100px;
-  height: 140px;
-  border: 2px solid #1f2933;
-  background: #f8fafc;
-  position: relative;
+.pestle{
+  width:14px;height:70px;
+  background:#64748b;
+  position:absolute;
+  top:-70px;left:55px;
+  border-radius:8px;
+  animation:crush .6s infinite;
 }
 
-.indicator {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 70%;
-  background: linear-gradient(#a855f7, #6d28d9);
+@keyframes crush{50%{top:-30px}}
+
+.water-stream{
+  width:4px;height:60px;
+  background:#93c5fd;
+  position:absolute;
+  top:-60px;left:50%;
+  animation:fade 1.2s forwards;
 }
 
-/* ============ GUIDE ============ */
-.guide {
-  background: white;
-  padding: 12px;
-  border-left: 3px solid #cbd5e1;
-  height: 100%;
+@keyframes fade{to{opacity:0}}
+
+.stirrer{
+  width:4px;height:50px;
+  background:#334155;
+  position:absolute;
+  left:50%;
+  animation:stir 1s linear infinite;
 }
 
-.checklist label {
-  display: block;
-  margin-bottom: 8px;
-}
-.checklist input:checked + span {
-  color: #16a34a;
-  font-weight: bold;
+@keyframes stir{to{transform:rotate(360deg)}}
+
+.beaker{
+  width:100px;height:140px;
+  border:2px solid #1f2933;
+  background:#f8fafc;
+  position:relative;
 }
 
-.feedback { font-weight: bold; margin-top: 10px; }
-.warning { color: red; font-weight: bold; }
+.indicator{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:70%;
+  background:linear-gradient(#a855f7,#6d28d9);
+  animation:rise 1.5s ease-out;
+}
 
-/* ============ END ============ */
+@keyframes rise{from{height:0}}
+
+/* ===== GUIDE ===== */
+.guide{
+  background:white;
+  padding:14px;
+  border-left:3px solid #cbd5e1;
+  overflow-y:auto;
+}
+
+.checklist label{display:block;margin-bottom:6px;font-size:13px}
+.feedback{font-weight:bold;margin-top:8px}
+.warning{color:red;font-weight:bold}
+
+/* ===== PROCEDURE ANIMATION ===== */
+.procedure-anim{
+  background:#0f172a;
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:12px;
+  text-align:center;
+  color:white;
+}
+
+.anim-mortar{
+  width:120px;height:70px;
+  background:#e5e7eb;
+  border-radius:0 0 60px 60px;
+  margin:0 auto;
+  position:relative;
+  overflow:hidden;
+}
+
+.anim-liquid{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:28px;
+  background:#6d28d9;
+  border-radius:16px;
+}
+
+.anim-pestle{
+  width:10px;height:60px;
+  background:#94a3b8;
+  border-radius:6px;
+  position:absolute;
+  left:55px;
+  top:-50px;
+  animation:animCrush .8s infinite;
+}
+
+@keyframes animCrush{50%{top:-20px}}
+
+.anim-label{font-size:13px;margin-top:6px}
+
+/* ===== VIDEO ===== */
+.video-box iframe{
+  width:100%;
+  height:160px;
+  border-radius:10px;
+  margin-top:10px;
+}
 </style>
 </head>
 
@@ -226,22 +235,24 @@ header {
 <header>
   <h2>🧪 Scene 1 – Preparing Acid–Base Indicator</h2>
   <div>
-    <button class="nav-btn" onclick="location.href='index.html'">◀ Home</button>
+    <button class="nav-btn" onclick="location.href='index.html'">◀ Previous</button>
     <button class="nav-btn" onclick="location.href='scene2.html'">Next ▶</button>
   </div>
 </header>
 
 <div class="lab">
 
+<!-- MATERIALS -->
 <aside class="shelf">
   <h3>🧰 Materials</h3>
-  <div class="item" draggable data-type="cabbage"><div class="cabbage-item"></div>Red Cabbage</div>
-  <div class="item" draggable data-type="pestle"><div class="pestle-item"></div>Pestle</div>
-  <div class="item" draggable data-type="water"><div class="water-beaker-item"></div>Warm Water</div>
-  <div class="item" draggable data-type="stir"><div class="stirrer-item"></div>Stirrer</div>
-  <div class="item" draggable data-type="filter"><div class="funnel-item"></div>Filter Funnel</div>
+  <div class="item active" draggable="true" data-type="cabbage"><div class="cabbage-item"></div>Red Cabbage</div>
+  <div class="item" draggable="true" data-type="pestle"><div class="pestle-item"></div>Pestle</div>
+  <div class="item" draggable="true" data-type="water"><div class="water-beaker-item"></div>Warm Water</div>
+  <div class="item" draggable="true" data-type="stir"><div class="stirrer-item"></div>Stirrer</div>
+  <div class="item" draggable="true" data-type="filter"><div class="funnel-item"></div>Filter</div>
 </aside>
 
+<!-- LAB -->
 <main class="workspace">
   <div class="bench">
     <div class="mortar" id="mortar"></div>
@@ -249,69 +260,109 @@ header {
   </div>
 </main>
 
+<!-- PROCEDURE -->
 <aside class="guide">
   <h3>🧪 Procedure</h3>
+
   <div class="checklist">
-    <label><input type="checkbox" id="step1" disabled><span>Add cabbage</span></label>
-    <label><input type="checkbox" id="step2" disabled><span>Crush</span></label>
-    <label><input type="checkbox" id="step3" disabled><span>Add water</span></label>
-    <label><input type="checkbox" id="step4" disabled><span>Stir</span></label>
-    <label><input type="checkbox" id="step5" disabled><span>Filter</span></label>
+    <label><input id="s1" type="checkbox" disabled> Add cabbage</label>
+    <label><input id="s2" type="checkbox" disabled> Crush</label>
+    <label><input id="s3" type="checkbox" disabled> Add water</label>
+    <label><input id="s4" type="checkbox" disabled> Stir</label>
+    <label><input id="s5" type="checkbox" disabled> Filter</label>
   </div>
-  <p class="feedback" id="feedback">Drag the red cabbage into the mortar.</p>
+
+<p class="feedback" id="feedback">Step 1: Drag red cabbage into the mortar.</p>
+
+  <!-- PROCEDURE -->
+<aside class="guide">
+  <h3>🧪 Animated Procedure</h3>
+
+ <div class="procedure-anim">
+  <div class="anim-mortar">
+    <div class="anim-liquid"></div>
+    <div class="anim-pestle"></div>
+  </div>
+  <p class="anim-label" id="animLabel">Crushing red cabbage</p>
+</div>
+
+<div class="video-box">
+  <h4>📺 Quick Tutorial</h4>
+  <iframe src="https://www.youtube.com/embed/d6qH8nWZ3tI" allowfullscreen></iframe>
+</div>
+
   <p class="warning" id="warning"></p>
+
 </aside>
 
 </div>
 
 <script>
-let step = 0;
-const mortar = document.getElementById("mortar");
-const beaker = document.getElementById("beaker");
-const feedback = document.getElementById("feedback");
-const warning = document.getElementById("warning");
+let step=0;
+const mortar=document.getElementById("mortar");
+const beaker=document.getElementById("beaker");
+const animLabel=document.getElementById("animLabel");
+const feedback=document.getElementById("feedback");
+const warning=document.getElementById("warning");
+const items=document.querySelectorAll(".item");
 
-document.addEventListener("dragstart", e => {
-  if (e.target.closest(".item")) {
-    e.dataTransfer.setData("type", e.target.closest(".item").dataset.type);
+function activate(type){
+  items.forEach(i=>i.classList.toggle("active",i.dataset.type===type));
+}
+
+document.addEventListener("dragstart",e=>{
+  const item=e.target.closest(".item");
+  if(item && item.classList.contains("active")){
+    e.dataTransfer.setData("type",item.dataset.type);
   }
 });
 
-[mortar, beaker].forEach(el =>
-  el.addEventListener("dragover", e => e.preventDefault())
-);
+[mortar,beaker].forEach(el=>el.addEventListener("dragover",e=>e.preventDefault()));
 
-mortar.addEventListener("drop", e => {
-  const t = e.dataTransfer.getData("type");
-  warning.textContent = "";
+mortar.addEventListener("drop",e=>{
+  const t=e.dataTransfer.getData("type");
+  warning.textContent="";
 
-  if (t === "cabbage" && step === 0) {
-    mortar.innerHTML += `<div class="cabbage" id="cab"></div>`;
-    step++; document.getElementById("step1").checked = true;
-    feedback.textContent = "Cabbage added.";
-  } else if (t === "pestle" && step === 1) {
+  if(step===0 && t==="cabbage"){
+    mortar.innerHTML='<div class="cabbage" id="cab"></div>';
+    s1.checked=true;
+    animLabel.textContent="Crushing red cabbage";
+    feedback.textContent="Step 2: Crush the cabbage.";
+    activate("pestle"); step++;
+  }
+  else if(step===1 && t==="pestle"){
     document.getElementById("cab").classList.add("crushed");
-    mortar.innerHTML += `<div class="pestle"></div>`;
-    step++; document.getElementById("step2").checked = true;
-    feedback.textContent = "Pigment released.";
-  } else if (t === "water" && step === 2) {
-    mortar.innerHTML += `<div class="water-stream"></div>`;
-    step++; document.getElementById("step3").checked = true;
-    feedback.textContent = "Extraction started.";
-  } else if (t === "stir" && step === 3) {
-    mortar.innerHTML += `<div class="stirrer"></div>`;
-    step++; document.getElementById("step4").checked = true;
-    feedback.textContent = "Stirring complete.";
-  } else warning.textContent = "Follow the correct order.";
+    mortar.innerHTML+='<div class="pestle"></div>';
+    s2.checked=true;
+    animLabel.textContent="Adding warm water";
+    feedback.textContent="Step 3: Add warm water.";
+    activate("water"); step++;
+  }
+  else if(step===2 && t==="water"){
+    mortar.innerHTML+='<div class="water-stream"></div>';
+    s3.checked=true;
+    animLabel.textContent="Stirring the mixture";
+    feedback.textContent="Step 4: Stir.";
+    activate("stir"); step++;
+  }
+  else if(step===3 && t==="stir"){
+    mortar.innerHTML+='<div class="stirrer"></div>';
+    s4.checked=true;
+    animLabel.textContent="Filtering solution";
+    feedback.textContent="Step 5: Filter.";
+    activate("filter"); step++;
+  }
+  else warning.textContent="Follow the steps in order.";
 });
 
-beaker.addEventListener("drop", e => {
-  if (e.dataTransfer.getData("type") === "filter" && step === 4) {
-    beaker.innerHTML = `<div class="indicator"></div>`;
-    document.getElementById("step5").checked = true;
-    feedback.textContent = "Indicator ready for testing!";
-    step++;
-  } else warning.textContent = "Complete previous steps first.";
+beaker.addEventListener("drop",e=>{
+  if(step===4 && e.dataTransfer.getData("type")==="filter"){
+    beaker.innerHTML='<div class="indicator"></div>';
+    s5.checked=true;
+    animLabel.textContent="Indicator ready!";
+    feedback.textContent="🎉 Experiment complete!";
+    activate(null);
+  } else warning.textContent="Complete previous steps first.";
 });
 </script>
 
